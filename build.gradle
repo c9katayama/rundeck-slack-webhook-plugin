@@ -1,0 +1,27 @@
+version = '1.0.0'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+sourceCompatibility = 1.8
+
+ext.rundeckPluginVersion= '1.1'
+ext.pluginClassNames='c9katayama.rundeck.plugins.notification.SlackIncomingWebHooksNotificationPlugin'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.rundeck:rundeck-core:2.6.0")
+	testCompile("junit:junit:4.12")
+	testCompile("com.google.code.gson:gson:2.3.1")
+}
+
+jar {
+    from "$buildDir/output"
+    manifest {
+        attributes 'Rundeck-Plugin-Classnames': pluginClassNames
+        attributes 'Rundeck-Plugin-File-Version': version
+        attributes 'Rundeck-Plugin-Version': rundeckPluginVersion, 'Rundeck-Plugin-Archive': 'true'
+    }
+}
